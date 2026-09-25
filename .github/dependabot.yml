@@ -1,0 +1,49 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Warsaw
+    # Stay at or above pnpm's minimumReleaseAge (1 day) so proposed versions always install.
+    cooldown:
+      default-days: 3
+      semver-major-days: 14
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      security:
+        applies-to: security-updates
+        patterns: ["*"]
+      minor-and-patch:
+        applies-to: version-updates
+        patterns: ["*"]
+        update-types: [minor, patch]
+    ignore:
+      # @astrojs/check requires TypeScript 6.0.x (see AGENTS.md).
+      - dependency-name: typescript
+        versions: [">=6.1.0"]
+      # @storybook/addon-vitest requires Vitest 4.1.x (see AGENTS.md).
+      - dependency-name: vitest
+        versions: [">=4.2.0"]
+      - dependency-name: "@vitest/*"
+        versions: [">=4.2.0"]
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: Europe/Warsaw
+    cooldown:
+      default-days: 3
+    open-pull-requests-limit: 5
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      actions:
+        patterns: ["*"]
