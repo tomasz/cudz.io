@@ -4,14 +4,10 @@ updates:
     directory: /
     schedule:
       interval: weekly
-      day: monday
-      time: "06:00"
-      timezone: Europe/Warsaw
     # Stay at or above pnpm's minimumReleaseAge (1 day) so proposed versions always install.
     cooldown:
-      default-days: 3
+      default-days: 7
       semver-major-days: 14
-    open-pull-requests-limit: 5
     commit-message:
       prefix: "chore(deps)"
     groups:
@@ -36,12 +32,8 @@ updates:
     directory: /
     schedule:
       interval: weekly
-      day: monday
-      time: "06:00"
-      timezone: Europe/Warsaw
     cooldown:
-      default-days: 3
-    open-pull-requests-limit: 5
+      default-days: 7
     commit-message:
       prefix: "chore(deps)"
     groups:
