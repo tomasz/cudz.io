@@ -1,0 +1,31 @@
+packages:
+  - apps/*
+  - packages/*
+  - e2e
+
+# Shared versions. Reference with "catalog:" in workspace package.json files.
+catalog:
+  "@astrojs/check": ^0.9.10
+  "@playwright/test": ^1.63.0
+  "@types/node": ^24.13.6
+  "@types/react": ^19.3.0
+  "@types/react-dom": ^19.3.0
+  # Pinned: @storybook/addon-vitest 10.x supports Vitest ^3 || ^4 only.
+  "@vitest/browser-playwright": ~4.1.11
+  astro: ^7.3.5
+  react: ^19.3.0
+  react-aria-components: ^1.21.1
+  react-dom: ^19.3.0
+  storybook: ^10.6.0
+  # Pinned: @astrojs/check 0.9.x supports TypeScript ^5 || ^6 only.
+  typescript: ~6.0.3
+  vitest: ~4.1.11
+  wrangler: ^4.140.0
+
+# Supply chain: wait a day before installing new releases, fail on trust downgrades,
+# and run install scripts only for reviewed packages.
+minimumReleaseAge: 1440
+trustPolicy: no-downgrade
+strictDepBuilds: true
+allowBuilds:
+  lefthook: true

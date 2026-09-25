@@ -1,0 +1,6 @@
+pnpm-lock.yaml
+dist/
+.astro/
+storybook-static/
+**/generated/
+**/__screenshots__/

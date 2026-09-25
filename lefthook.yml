@@ -1,0 +1,11 @@
+pre-commit:
+  parallel: true
+  jobs:
+    - name: secrets
+      run: gitleaks git --pre-commit --staged --redact --no-banner
+    - name: format
+      glob: "*.{js,mjs,ts,tsx,astro,json,jsonc,md,mdx,css,yml,yaml}"
+      run: pnpm exec prettier --check {staged_files}
+    - name: lint
+      glob: "*.{js,mjs,ts,tsx,astro}"
+      run: pnpm exec oxlint {staged_files}
