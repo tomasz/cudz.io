@@ -39,5 +39,5 @@ Every namespace and identifier derives from the domain `cudz.io`.
 
 - Toolchain versions come from `mise.toml`. Shared dependency versions go in the `catalog:` in `pnpm-workspace.yaml`.
 - TypeScript stays on 6.0.x (required by `@astrojs/check`) and Vitest on 4.1.x (required by `@storybook/addon-vitest`) until those constraints lift.
-- `main` is protected: changes land through pull requests merged with **rebase** (linear history). No direct pushes or force pushes.
+- `main` is protected: changes land through pull requests merged with **squash** (linear history). Commits on `main` must be signed; GitHub signs squash merges, rebase merges would land unsigned. No direct pushes or force pushes.
 - Before committing, run `pnpm lint && pnpm format:check && pnpm typecheck && pnpm test`. Pre-commit hooks run gitleaks, Prettier and Oxlint.
