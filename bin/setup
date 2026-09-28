@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Sets the project up in any environment and is safe to re-run. The devcontainer and Cursor
+# cloud agents run it on create, Codex cloud as its setup script, and Claude Code on the web
+# from a SessionStart hook. It installs only what the environment lacks.
+set -euo pipefail
+
+if ! command -v vp >/dev/null; then
+  env="${XDG_CONFIG_HOME:-$HOME/.config}/vite-plus/env"
+  # The installer https://vite.plus serves, fetched from GitHub, which more sandboxes allow.
+  # It also loads itself from ~/.bashrc.
+  [ -f "$env" ] || curl -fsSL https://raw.githubusercontent.com/voidzero-dev/vite-plus/main/packages/cli/install.sh | bash
+  . "$env"
+  # Node and pnpm come from package.json, never from whatever the system has.
+  vp env on
+  # Claude Code on the web loads this file, not ~/.bashrc, before each command.
+  [ -z "${CLAUDE_ENV_FILE:-}" ] || echo ". '$env'" >>"$CLAUDE_ENV_FILE"
+fi
+
+if ! command -v gitleaks >/dev/null; then
+  version=8.30.1
+  arch=$(uname -m | sed 's/x86_64/x64/;s/aarch64/arm64/')
+  mkdir -p ~/.local/bin
+  curl -fsSL "https://github.com/gitleaks/gitleaks/releases/download/v$version/gitleaks_${version}_linux_$arch.tar.gz" |
+    tar -xz -C ~/.local/bin gitleaks
+fi
+
+vp install --frozen-lockfile

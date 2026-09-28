@@ -22,11 +22,6 @@ updates:
       # @astrojs/check requires TypeScript 6.0.x (see AGENTS.md).
       - dependency-name: typescript
         versions: [">=6.1.0"]
-      # @storybook/addon-vitest requires Vitest 4.1.x (see AGENTS.md).
-      - dependency-name: vitest
-        versions: [">=4.2.0"]
-      - dependency-name: "@vitest/*"
-        versions: [">=4.2.0"]
 
   - package-ecosystem: github-actions
     directory: /
@@ -39,3 +34,23 @@ updates:
     groups:
       actions:
         patterns: ["*"]
+
+  # The devcontainer: `docker` bumps the pinned image in .devcontainer/Dockerfile,
+  # `devcontainers` bumps the Features in devcontainer.json.
+  - package-ecosystem: docker
+    directory: /.devcontainer
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "chore(deps)"
+
+  - package-ecosystem: devcontainers
+    directory: /
+    schedule:
+      interval: weekly
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: "chore(deps)"

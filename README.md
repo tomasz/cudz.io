@@ -12,21 +12,23 @@ Static files only, served by Cloudflare Workers Static Assets. Every change reac
 
 ## Setup
 
+Everything runs in the devcontainer (`.devcontainer/`); the host needs only a container runtime. Open the repository in any editor with Dev Containers support, in GitHub Codespaces, or from a terminal:
+
 ```sh
-mise install     # Node, pnpm, gitleaks from mise.toml
-pnpm install     # also installs git hooks (lefthook)
+devcontainer up --workspace-folder .
+devcontainer exec --workspace-folder . bash
 ```
+
+The container ships `vp`, gitleaks and the `claude`, `codex` and `cursor-agent` CLIs, and runs `bin/setup` on create. Cloud agents without Docker run `bin/setup` directly; see [AGENTS.md](AGENTS.md#environment).
 
 ## Commands
 
-| Command             | Does                               |
-| ------------------- | ---------------------------------- |
-| `pnpm lint`         | Oxlint                             |
-| `pnpm format`       | Prettier (write)                   |
-| `pnpm format:check` | Prettier (check)                   |
-| `pnpm typecheck`    | Type-check every workspace package |
-| `pnpm test`         | Unit tests in every package        |
-| `pnpm build`        | Build every package                |
+| Command           | Does                                           |
+| ----------------- | ---------------------------------------------- |
+| `vp run ready`    | Format, lint and type checks: the gate CI runs |
+| `vp check --fix`  | Format and apply lint fixes                    |
+| `vp test`         | Unit tests                                     |
+| `vp run -r build` | Build every package                            |
 
 ## Rights
 
