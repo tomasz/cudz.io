@@ -10,8 +10,6 @@ catalog:
   "@types/node": ^26.5.1
   "@types/react": ^19.3.0
   "@types/react-dom": ^19.3.0
-  # Pinned: @storybook/addon-vitest 10.x supports Vitest ^3 || ^4 only.
-  "@vitest/browser-playwright": ~4.1.11
   astro: ^7.3.5
   react: ^19.3.0
   react-aria-components: ^1.21.1
@@ -19,13 +17,26 @@ catalog:
   storybook: ^10.6.0
   # Pinned: @astrojs/check 0.9.x supports TypeScript ^5 || ^6 only.
   typescript: ~6.0.3
-  vitest: ~4.1.11
+  # Vite+ bundles Vite, Vitest, Oxlint and Oxfmt; `vite` resolves to its core everywhere.
+  vite: npm:@voidzero-dev/vite-plus-core@1.0.0
+  vite-plus: 1.0.0
   wrangler: ^4.140.0
+
+overrides:
+  vite@*: "catalog:"
+peerDependencyRules:
+  allowAny:
+    - vite
+  allowedVersions:
+    vite: "*"
 
 # Supply chain: wait a day before installing new releases, fail on trust downgrades,
 # and run install scripts only for reviewed packages.
 minimumReleaseAge: 1440
 trustPolicy: no-downgrade
 strictDepBuilds: true
-allowBuilds:
-  lefthook: true
+
+# `vp` (from packageManager) already runs the pinned pnpm. Without this, pnpm 12 also
+# records itself as a second lockfile document, which hides the lockfile from GitHub's
+# dependency graph and Dependabot alerts.
+pmOnFail: ignore

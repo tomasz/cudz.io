@@ -1,0 +1,4 @@
+{
+  "build": { "context": "../.devcontainer", "dockerfile": "../.devcontainer/Dockerfile" },
+  "install": "bin/setup"
+}

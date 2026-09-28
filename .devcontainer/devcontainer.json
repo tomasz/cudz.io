@@ -1,0 +1,25 @@
+{
+  "name": "cudz.io",
+  "build": { "dockerfile": "Dockerfile" },
+  "features": {
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  // Sign-ins (Claude, Codex, Cursor, gh) live in ~/.config, one volume that survives
+  // rebuilds and is shared with every devcontainer that mounts it.
+  "mounts": ["source=devcontainer-config,target=/home/vp/.config,type=volume"],
+  "containerEnv": {
+    "CLAUDE_CONFIG_DIR": "/home/vp/.config/claude",
+    "CODEX_HOME": "/home/vp/.config/codex"
+  },
+  "postCreateCommand": "bin/setup",
+  "customizations": {
+    "vscode": {
+      "extensions": ["VoidZero.vite-plus-extension-pack"],
+      "settings": {
+        "editor.defaultFormatter": "oxc.oxc-vscode",
+        "editor.formatOnSave": true,
+        "editor.formatOnSaveMode": "file"
+      }
+    }
+  }
+}

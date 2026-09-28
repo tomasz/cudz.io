@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "[ \"$CLAUDE_CODE_REMOTE\" != true ] || \"$CLAUDE_PROJECT_DIR\"/bin/setup"
+          }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "allow": [
+      "Bash(vp check:*)",
+      "Bash(vp test:*)",
+      "Bash(vp run:*)",
+      "Bash(vp install --frozen-lockfile)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(gh pr view:*)",
+      "Bash(gh run view:*)"
+    ],
+    "deny": [
+      "Bash(*--no-verify*)",
+      "Bash(git push --force*)",
+      "Bash(git push -f*)",
+      "Bash(git push origin *:main)",
+      "Bash(*wrangler deploy*)",
+      "Bash(*wrangler secret*)",
+      "Bash(gh secret*)",
+      "Bash(gh variable*)",
+      "Bash(gh repo delete*)"
+    ]
+  }
+}
