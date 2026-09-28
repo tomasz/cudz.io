@@ -24,9 +24,8 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
       # CI runs in the devcontainer everyone develops in: same image, same bin/setup.
-      - uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca # v0.3.1900000450
-        with:
-          runCmd: vp run ready && gitleaks git --redact --no-banner
+      - run: npx --yes @devcontainers/cli@0.89.0 up --workspace-folder .
+      - run: npx --yes @devcontainers/cli@0.89.0 exec --workspace-folder . bash -c 'vp run ready && gitleaks git --redact --no-banner'
 
   dependency-review:
     name: dependency-review
